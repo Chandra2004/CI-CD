@@ -3,21 +3,20 @@ name: Deploy to InfiniteFree
 on:
   push:
     branches:
-      - main # atau main, sesuaikan dengan branch kamu
+      - main
 
 jobs:
   ftp-deploy:
-    name: 🚀 Upload via FTP
+    name: Upload via FTP (push)
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout source code
-      uses: actions/checkout@v3
+      - name: Checkout repo
+        uses: actions/checkout@v3
 
-    - name: Upload via FTP
-      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-      with:
-        server: ${{ secrets.FTP_SERVER }}
-        username: ${{ secrets.FTP_USERNAME }}
-        password: ${{ secrets.FTP_PASSWORD }}
-        server-dir: ${{ secrets.FTP_TARGET_DIR }}
+      - name: Upload to FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: /htdocs/
